@@ -62,8 +62,8 @@
         }
         #volumeControl {
             position: fixed;
-            bottom: 20px;
-            left: calc(50% + 70px); /* Позиционирование рядом со кнопкой */
+            bottom: 10px; /* Позиционируем ниже кнопки */
+            left: calc(50% + 70px); /* Позиционируем рядом со кнопкой */
             transform: translateX(-50%);
             width: 150px;
             z-index: 1;
@@ -105,69 +105,25 @@
         <a href="https://vk.com/cyamure" target="_blank">VKontakte</a>
         <a href="https://www.youtube.com/@meilleuro" target="_blank">YouTube</a>
     </div>
-    <button id="toggleButton">Pause</button>
-    <input type="range" id="volumeControl" min="0" max="100" value="100">
+    <button id="toggleButton">Play</button>
+    <div id="volumeControl">
+        <input type="range" min="0" max="100" value="100" id="volumeRange">
+    </div>
     <div class="left-image"></div>
     <div class="right-image"></div>
     <img src="https://i.postimg.cc/0N7JXNPp/ava-animation-cats-101.gif" alt="Cat" class="center-image">
     <img src="https://i.postimg.cc/NK9GtZP5/dance-girl-left.gif" alt="Dance Girl Left" class="dance-girl-left">
     <img src="https://i.postimg.cc/NK9GtZP5/dance-girl-right.gif" alt="Dance Girl Right" class="dance-girl-right">
+    <audio id="audio" loop>
+        <source src="курящих_нет_-_Мы_коты.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <script>
-        const symbols = "殪幢緻Iii爰曷樔黎㌢´｀ⅷ艇艀裲f睚鳫巓襴骸贒憊殪幢緻I翰儂樔黎夢'ｨ傾盥皋袍i耘蚌紕偸′雫寬I悗f篝嚠篩i縒縡齢Ⅷ辨f輯駲f迯瓲i軌帶'守I厖孩幢儂儼巓襴緲'守枢i磬廛嚠篩I縒縡夢'守峽f蚌紕襴緲'守畝f瓲軌揄'gf毯綴鳫襴鑿奪寔f厦絨緲'罨悳巓緲'綴〟'罨椁巓登嶮薤篝㎜㎜g緲甯體i爺綴｡'罨琥I軌襴暹甯幗緲fi'緲',纜贒i綟碕碚爺綴｡'罨皴巓襴驫霤I緲緲纜穐甯絛跨飩i髢綴馳爺綴｡'等誄";
-        const matrixElement = document.getElementById('matrix');
-        const columns = Math.floor(window.innerWidth / 10); // Количество столбцов
-        const columnSymbols = []; // Символы для каждого столбца
-
-        // Создание случайного символа
-        function randomSymbol() {
-            return symbols.charAt(Math.floor(Math.random() * symbols.length));
-        }
-
-        // Инициализация столбцов
-        for (let i = 0; i < columns; i++) {
-            columnSymbols[i] = {
-                symbol: randomSymbol(),
-                position: (Math.random() * window.innerHeight) * -1, // Стартовая позиция символов (над экраном)
-                speed: Math.random() * 3 + 1 // Случайная скорость падения символов
-            };
-        }
-
-        // Обновление состояния матрицы
-        function updateMatrix() {
-            matrixElement.innerHTML = ''; // Очистка матрицы перед обновлением
-            for (let i = 0; i < columns; i++) {
-                // Получение данных о столбце
-                const { symbol, position, speed } = columnSymbols[i];
-
-                // Добавление символа в столбец
-                matrixElement.innerHTML += `<span style="position:absolute; top:${position}px; left:${i * 10}px; filter: blur(2px);">${symbol}</span>`;
-
-                // Перемещение символа вниз
-                columnSymbols[i].position += speed;
-                
-                // Если символ достиг нижней границы экрана, возвращаем его наверх и меняем символ
-                if (position > window.innerHeight) {
-                    columnSymbols[i].position = (Math.random() * window.innerHeight) * -1;
-                    columnSymbols[i].symbol = randomSymbol();
-                }
-            }
-        }
-
-        // Запуск анимации с эффектом параллакса
-        function animateMatrix() {
-            updateMatrix();
-            requestAnimationFrame(animateMatrix);
-        }
-
-        animateMatrix();
-
-        // Добавление обработчиков событий для кнопок
         const toggleButton = document.getElementById('toggleButton');
-        toggleButton.addEventListener('click', toggleAudio);
+        const audio = document.getElementById('audio');
+        const volumeRange = document.getElementById('volumeRange');
 
-        // Функция для включения/выключения звука
-        function toggleAudio() {
-            const audio = document.getElementById('audio');
+        toggleButton.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play();
                 toggleButton.textContent = 'Pause';
@@ -175,21 +131,11 @@
                 audio.pause();
                 toggleButton.textContent = 'Play';
             }
-        }
+        });
 
-        // Добавление регулятора громкости
-        const volumeControl = document.getElementById('volumeControl');
-        volumeControl.addEventListener('input', adjustVolume);
-
-        // Функция для регулирования громкости
-        function adjustVolume() {
-            const audio = document.getElementById('audio');
-            audio.volume = volumeControl.value / 100;
-        }
+        volumeRange.addEventListener('input', () => {
+            audio.volume = volumeRange.value / 100;
+        });
     </script>
-    <audio id="audio" autoplay loop>
-        <source src="курящих_нет_-_Мы_коты.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
 </body>
 </html>
