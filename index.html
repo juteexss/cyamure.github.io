@@ -62,8 +62,8 @@
         }
         #volumeControl {
             position: fixed;
-            bottom: 10px; /* Позиционируем ниже кнопки */
-            left: calc(50% + 70px); /* Позиционируем рядом со кнопкой */
+            bottom: 10px;
+            left: 50%;
             transform: translateX(-50%);
             width: 150px;
             z-index: 1;
@@ -107,14 +107,14 @@
     </div>
     <button id="toggleButton">Play</button>
     <div id="volumeControl">
-        <input type="range" min="0" max="100" value="100" id="volumeRange">
+        <input type="range" min="0" max="1" step="0.01" value="0.2" id="volumeRange">
     </div>
     <div class="left-image"></div>
     <div class="right-image"></div>
     <img src="https://i.postimg.cc/0N7JXNPp/ava-animation-cats-101.gif" alt="Cat" class="center-image">
     <img src="https://i.postimg.cc/NK9GtZP5/dance-girl-left.gif" alt="Dance Girl Left" class="dance-girl-left">
     <img src="https://i.postimg.cc/NK9GtZP5/dance-girl-right.gif" alt="Dance Girl Right" class="dance-girl-right">
-    <audio id="audio" loop>
+    <audio id="audio" autoplay loop volume="0.2">
         <source src="курящих_нет_-_Мы_коты.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -134,7 +134,7 @@
         });
 
         volumeRange.addEventListener('input', () => {
-            audio.volume = volumeRange.value / 100;
+            audio.volume = volumeRange.value;
         });
     </script>
     <script>
