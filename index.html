@@ -135,8 +135,8 @@
         .audio-controls {
             position: absolute;
             bottom: 20px;
-            left: 50%; /* Позиционируем по центру */
-            transform: translateX(-50%); /* Центрируем относительно родительского элемента */
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             align-items: center;
         }
@@ -148,7 +148,7 @@
             border-radius: 50%;
             width: 40px;
             height: 40px;
-            margin: 0 10px; /* Устанавливаем отступы между кнопками */
+            margin-left: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -160,7 +160,7 @@
         /* Стили для ползунка громкости */
         .volume-slider {
             width: 100px;
-            margin: 0 20px; /* Устанавливаем отступы между элементами */
+            margin-left: 20px;
         }
         
         .volume-slider input[type="range"] {
@@ -210,12 +210,12 @@
     
     <!-- Элементы управления аудио -->
     <div class="audio-controls">
-        <!-- Кнопка воспроизведения/паузы -->
-        <button id="playPauseButton">&#9658;</button>
         <!-- Ползунок громкости -->
         <div class="volume-slider">
             <input type="range" min="0" max="1" step="0.01" value="0.2" id="volumeControl">
         </div>
+        <!-- Кнопка воспроизведения/паузы -->
+        <button id="playPauseButton">&#9658;</button>
     </div>
     
     <script>
