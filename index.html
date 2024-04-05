@@ -60,6 +60,14 @@
         #toggleButton:hover {
             background-color: #222;
         }
+        #volumeControl {
+            position: fixed;
+            bottom: 20px;
+            left: calc(50% + 70px); /* Позиционирование рядом со кнопкой */
+            transform: translateX(-50%);
+            width: 150px;
+            z-index: 1;
+        }
         .left-image, .right-image {
             position: fixed;
             top: 50%;
@@ -97,7 +105,8 @@
         <a href="https://vk.com/cyamure" target="_blank">VKontakte</a>
         <a href="https://www.youtube.com/@meilleuro" target="_blank">YouTube</a>
     </div>
-    <button id="toggleButton">Play</button>
+    <button id="toggleButton">Pause</button>
+    <input type="range" id="volumeControl" min="0" max="100" value="100">
     <div class="left-image"></div>
     <div class="right-image"></div>
     <img src="https://i.postimg.cc/0N7JXNPp/ava-animation-cats-101.gif" alt="Cat" class="center-image">
@@ -118,7 +127,7 @@
         for (let i = 0; i < columns; i++) {
             columnSymbols[i] = {
                 symbol: randomSymbol(),
-                position: Math.floor(Math.random() * window.innerHeight) * -1, // Стартовая позиция символов (над экраном)
+                position: (Math.random() * window.innerHeight) * -1, // Стартовая позиция символов (над экраном)
                 speed: Math.random() * 3 + 1 // Случайная скорость падения символов
             };
         }
@@ -138,7 +147,7 @@
                 
                 // Если символ достиг нижней границы экрана, возвращаем его наверх и меняем символ
                 if (position > window.innerHeight) {
-                    columnSymbols[i].position = Math.random() * window.innerHeight * -1;
+                    columnSymbols[i].position = (Math.random() * window.innerHeight) * -1;
                     columnSymbols[i].symbol = randomSymbol();
                 }
             }
@@ -166,6 +175,16 @@
                 audio.pause();
                 toggleButton.textContent = 'Play';
             }
+        }
+
+        // Добавление регулятора громкости
+        const volumeControl = document.getElementById('volumeControl');
+        volumeControl.addEventListener('input', adjustVolume);
+
+        // Функция для регулирования громкости
+        function adjustVolume() {
+            const audio = document.getElementById('audio');
+            audio.volume = volumeControl.value / 100;
         }
     </script>
     <audio id="audio" autoplay loop>
