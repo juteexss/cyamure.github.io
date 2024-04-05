@@ -22,15 +22,33 @@
         }
         .social-buttons {
             position: fixed; /* Зафиксированное положение для кнопок */
-            bottom: 20px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             display: flex;
+            flex-direction: column;
             align-items: center;
             z-index: 1; /* Над символами */
         }
-        .social-buttons button {
-            margin: 0 10px;
+        .social-buttons a {
+            margin: 5px;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            background-color: #333;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .social-buttons a:hover {
+            background-color: #222;
+            transform: scale(1.1);
+        }
+        #toggleButton {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
             padding: 5px 10px;
             background-color: #333;
             border: none;
@@ -39,7 +57,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        .social-buttons button:hover {
+        #toggleButton:hover {
             background-color: #222;
         }
         .left-image, .right-image {
@@ -75,8 +93,11 @@
 <body>
     <pre id="matrix"></pre>
     <div class="social-buttons">
-        <button id="toggleButton">Play</button>
+        <a href="https://t.me/cyamure" target="_blank">Telegram</a>
+        <a href="https://vk.com/cyamure" target="_blank">VKontakte</a>
+        <a href="https://www.youtube.com/@meilleuro" target="_blank">YouTube</a>
     </div>
+    <button id="toggleButton">Play</button>
     <div class="left-image"></div>
     <div class="right-image"></div>
     <img src="https://i.postimg.cc/0N7JXNPp/ava-animation-cats-101.gif" alt="Cat" class="center-image">
