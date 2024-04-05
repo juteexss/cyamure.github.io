@@ -22,10 +22,11 @@
         }
         .social-buttons {
             position: fixed; /* Зафиксированное положение для кнопок */
-            bottom: 20px; /* Нижний отступ */
-            left: 50%; /* По середине горизонтально */
-            transform: translateX(-50%); /* Центрирование по горизонтали */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
+            flex-direction: column;
             align-items: center;
             z-index: 1; /* Над символами */
         }
@@ -42,6 +43,34 @@
         .social-buttons a:hover {
             background-color: #222;
             transform: scale(1.1);
+        }
+        .left-image, .right-image {
+            position: fixed;
+            top: 50%;
+            width: 100px; /* Ширина изображений */
+            height: 100px; /* Высота изображений */
+            border-radius: 50%; /* Загругленные края */
+            opacity: 0.7; /* Прозрачность */
+            z-index: 1; /* Над символами */
+        }
+        .center-image {
+            position: fixed;
+            bottom: 30px; /* Поднял кота выше */
+            left: 50%;
+            transform: translateX(-50%) scale(0.33); /* Уменьшение кота в 3 раза */
+            z-index: 1;
+        }
+        .dance-girl-left, .dance-girl-right {
+            position: fixed;
+            bottom: 10px;
+            width: 100px;
+            z-index: 1;
+        }
+        .dance-girl-left {
+            left: 10px;
+        }
+        .dance-girl-right {
+            right: 10px;
         }
         /* Стили для кнопки воспроизведения/паузы и ползунка громкости */
         .audio-controls {
@@ -109,6 +138,11 @@
         <a href="https://vk.com/cyamure" target="_blank">VKontakte</a>
         <a href="https://www.youtube.com/@meilleuro" target="_blank">YouTube</a>
     </div>
+    <div class="left-image"></div>
+    <div class="right-image"></div>
+    <img src="https://i.postimg.cc/0N7JXNPp/ava-animation-cats-101.gif" alt="Cat" class="center-image">
+    <img src="https://i.postimg.cc/NK9GtZP5/dance-girl-left.gif" alt="Dance Girl Left" class="dance-girl-left">
+    <img src="https://i.postimg.cc/NK9GtZP5/dance-girl-right.gif" alt="Dance Girl Right" class="dance-girl-right">
     <!-- Включение аудио -->
     <audio id="audio" autoplay loop volume="0.2">
         <source src="курящих нет - Мы коты.mp3" type="audio/mp3">
