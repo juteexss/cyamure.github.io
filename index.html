@@ -10,25 +10,26 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            background-color: black; /* Черный фон */
-            overflow: hidden; /* Чтобы символы не выходили за пределы экрана */
+            background-color: black;
+            overflow: hidden;
         }
         #matrix {
             position: absolute;
             top: 0;
             left: 0;
-            color: darkgreen; /* Темно-зеленый цвет символов */
-            font-size: 20px; /* Увеличиваем размер шрифта */
+            color: darkgreen;
+            font-size: 20px;
+            filter: blur(1px); /* Размытие для фона матрицы */
         }
         .social-buttons {
-            position: fixed; /* Зафиксированное положение для кнопок */
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 1; /* Над символами */
+            z-index: 1;
         }
         .social-buttons a {
             display: inline-block;
@@ -36,28 +37,37 @@
             padding: 10px 20px;
             color: #fff;
             text-decoration: none;
-            background-color: #333;
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.7), rgba(0, 128, 0, 0.7));
             border-radius: 5px;
             transition: all 0.3s ease;
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
         }
+        .social-buttons a:nth-child(1) { animation-delay: 0.2s; }
+        .social-buttons a:nth-child(2) { animation-delay: 0.4s; }
+        .social-buttons a:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .social-buttons a:hover {
-            background-color: #222;
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.9), rgba(0, 128, 0, 0.9));
             transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
         }
-        .left-image, .right-image {
-            position: fixed;
-            top: 50%;
-            width: 100px; /* Ширина изображений */
-            height: 100px; /* Высота изображений */
-            border-radius: 50%; /* Загругленные края */
-            opacity: 0.7; /* Прозрачность */
-            z-index: 1; /* Над символами */
-        }
+
         .center-image {
             position: fixed;
-            bottom: 30px; /* Поднял кота выше */
+            bottom: 30px;
             left: 50%;
-            transform: translateX(-50%) scale(0.33); /* Уменьшение кота в 3 раза */
+            transform: translateX(-50%) scale(0.33);
             z-index: 1;
         }
         .dance-girl-left, .dance-girl-right {
@@ -72,7 +82,6 @@
         .dance-girl-right {
             right: 10px;
         }
-        /* Стили для кнопки воспроизведения/паузы и ползунка громкости */
         .audio-controls {
             position: fixed;
             bottom: 20px;
@@ -80,11 +89,10 @@
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            z-index: 1; /* Над символами */
+            z-index: 1;
         }
-        
         .audio-controls button {
-            background-color: #333;
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.7), rgba(0, 128, 0, 0.7));
             color: #fff;
             border: none;
             border-radius: 50%;
@@ -92,18 +100,18 @@
             height: 40px;
             margin-left: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }
-        
         .audio-controls button:hover {
-            background-color: #222;
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.9), rgba(0, 128, 0, 0.9));
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
         }
-        
         .volume-slider {
             width: 100px;
             margin-left: 20px;
         }
-        
         .volume-slider input[type="range"] {
             -webkit-appearance: none;
             width: 100%;
@@ -115,7 +123,6 @@
             -webkit-transition: .2s;
             transition: opacity .2s;
         }
-        
         .volume-slider input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -125,7 +132,6 @@
             border-radius: 50%;
             cursor: pointer;
         }
-        
         .volume-slider input[type="range"]:hover {
             opacity: 1;
         }
@@ -138,87 +144,60 @@
         <a href="https://vk.com/cyamure" target="_blank">VKontakte</a>
         <a href="https://t.me/+FE8MHNqSUoFjMjQ6" target="_blank">TG channel</a>
     </div>
-    <div class="left-image"></div>
-    <div class="right-image"></div>
     <img src="https://i.postimg.cc/0N7JXNPp/ava-animation-cats-101.gif" alt="Cat" class="center-image">
     <img src="https://i.postimg.cc/NK9GtZP5/dance-girl-left.gif" alt="Dance Girl Left" class="dance-girl-left">
     <img src="https://i.postimg.cc/NK9GtZP5/dance-girl-right.gif" alt="Dance Girl Right" class="dance-girl-right">
-    <!-- Включение аудио -->
     <audio id="audio" autoplay loop volume="0.2">
         <source src="курящих нет - Мы коты.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-    
-    <!-- Элементы управления аудио -->
     <div class="audio-controls">
-        <!-- Кнопка воспроизведения/паузы -->
         <button id="playPauseButton">&#9658;</button>
-        <!-- Ползунок громкости -->
         <div class="volume-slider">
             <input type="range" min="0" max="1" step="0.01" value="0.2" id="volumeControl">
         </div>
     </div>
 
     <script>
-        // Получаем ссылку на аудио
         var audio = document.getElementById("audio");
-        
-        // Получаем ссылку на кнопку воспроизведения/паузы
         var playPauseButton = document.getElementById("playPauseButton");
-        
-        // Функция для воспроизведения/паузы аудио
         function togglePlayPause() {
             if (audio.paused) {
                 audio.play();
-                playPauseButton.innerHTML = "&#10074;&#10074;"; // Изменяем значок на паузу
+                playPauseButton.innerHTML = "&#10074;&#10074;";
             } else {
                 audio.pause();
-                playPauseButton.innerHTML = "&#9658;"; // Изменяем значок на воспроизведение
+                playPauseButton.innerHTML = "&#9658;";
             }
         }
-        
-        // Привязываем функцию к событию нажатия на кнопку воспроизведения/паузы
         playPauseButton.addEventListener("click", togglePlayPause);
-        
-        // Привязываем функцию к событию изменения положения ползунка громкости
         document.getElementById("volumeControl").addEventListener("input", function() {
-            audio.volume = this.value; // Устанавливаем громкость аудио в соответствии с положением ползунка
+            audio.volume = this.value;
         });
-    </script>
-    <script>
-        const symbols = "殪幢緻Iii爰曷樔黎㌢´｀ⅷ艇艀裲f睚鳫巓襴骸贒憊殪幢緻I翰儂樔黎夢'ｨ傾盥皋袍i耘蚌紕偸′雫寬I悗f篝嚠篩i縒縡齢Ⅷ辨f輯駲f迯瓲i軌帶'守I厖孩幢儂儼巓襴緲'守枢i磬廛嚠篩I縒縡夢'守峽f蚌紕襴緲'守畝f瓲軌揄'gf毯綴鳫襴鑿奪寔f厦絨緲'罨悳巓緲'綴〟'罨椁巓登嶮薤篝㎜㎜g緲甯體i爺綴｡'罨琥I軌襴暹甯幗緲fi'緲',纜贒i綟碕碚爺綴｡'罨皴巓襴驫霤I緲緲纜穐甯絛跨飩i髢綴馳爺綴｡'等誄";
-        const matrixElement = document.getElementById('matrix');
-        const columns = Math.floor(window.innerWidth / 10); // Количество столбцов
-        const columnSymbols = []; // Символы для каждого столбца
 
-        // Создание случайного символа
+        const symbols = "01";
+        const matrixElement = document.getElementById('matrix');
+        const columns = Math.floor(window.innerWidth / 20); // Уменьшено количество столбцов
+        const columnSymbols = [];
+
         function randomSymbol() {
             return symbols.charAt(Math.floor(Math.random() * symbols.length));
         }
 
-        // Инициализация столбцов
         for (let i = 0; i < columns; i++) {
             columnSymbols[i] = {
                 symbol: randomSymbol(),
-                position: Math.floor(Math.random() * window.innerHeight) * -1, // Стартовая позиция символов (над экраном)
-                speed: Math.random() * 3 + 1 // Случайная скорость падения символов
+                position: Math.floor(Math.random() * window.innerHeight) * -1,
+                speed: Math.random() * 2 + 1 // Уменьшена скорость
             };
         }
 
-        // Обновление состояния матрицы
         function updateMatrix() {
-            matrixElement.innerHTML = ''; // Очистка матрицы перед обновлением
+            matrixElement.innerHTML = '';
             for (let i = 0; i < columns; i++) {
-                // Получение данных о столбце
                 const { symbol, position, speed } = columnSymbols[i];
-
-                // Добавление символа в столбец
-                matrixElement.innerHTML += `<span style="position:absolute; top:${position}px; left:${i * 10}px; filter: blur(2px);">${symbol}</span>`;
-
-                // Перемещение символа вниз
+                matrixElement.innerHTML += `<span style="position:absolute; top:${position}px; left:${i * 20}px;">${symbol}</span>`;
                 columnSymbols[i].position += speed;
-                
-                // Если символ достиг нижней границы экрана, возвращаем его наверх и меняем символ
                 if (position > window.innerHeight) {
                     columnSymbols[i].position = Math.random() * window.innerHeight * -1;
                     columnSymbols[i].symbol = randomSymbol();
@@ -226,30 +205,12 @@
             }
         }
 
-        // Запуск анимации с эффектом параллакса
         function animateMatrix() {
             updateMatrix();
             requestAnimationFrame(animateMatrix);
         }
 
         animateMatrix();
-
-        // Добавление обработчиков событий для кнопок
-        const socialButtons = document.querySelectorAll('.social-buttons a');
-        socialButtons.forEach(button => {
-            button.addEventListener('mouseover', () => {
-                // Замедление матрицы при наведении на кнопку
-                columnSymbols.forEach(symbol => {
-                    symbol.speed *= 0.5;
-                });
-            });
-            button.addEventListener('mouseout', () => {
-                // Возврат нормальной скорости при уходе с кнопки
-                columnSymbols.forEach(symbol => {
-                    symbol.speed *= 2;
-                });
-            });
-        });
     </script>
 </body>
 </html>
